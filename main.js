@@ -8,7 +8,7 @@ const password=document.querySelector("#password")
 const form=document.querySelector("#registration")
 
 const Axios=axios.create({
-    baseURL:"http://192.168.0.103:3000",
+    baseURL:" https://a8ed-115-187-58-227.ngrok-free.app",
     headers:{
         "Content-Type":"application/json"
     }

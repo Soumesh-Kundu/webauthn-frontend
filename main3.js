@@ -4,7 +4,7 @@ import axios from 'axios'
 const username=document.querySelector("#username")
 const password=document.querySelector("#password")
 
-const form=document.querySelector("#registration")
+const form=document.querySelector("#login2")
 
 const Axios=axios.create({
     baseURL:"http://localhost:3000",
@@ -22,11 +22,10 @@ form.addEventListener('submit',async (e)=>{
         return
     }
     try {
-        let res=await Axios.post('/register',{
+        let res=await Axios.post('/authenticate',{
             username:username.value,
             password:password.value
         })
-        console.log(res)
         if(res.status!==200){
             return console.log("error")
         }
@@ -53,5 +52,12 @@ form.addEventListener('submit',async (e)=>{
         }
     } catch (error) {
         console.log(error)
+        if(!error.response){
+            window.location.href="error.html"
+            return
+        }
+        if(error.response && error.response===400){
+            console.log(error.response.data.message)
+        }
     }
 })

@@ -33,6 +33,18 @@ form.addEventListener('submit',async (e)=>{
             window.location.href='/loginSucess.html'
         }
     } catch (error) {
-        console.log(error)
+        if(!error.response || error.response.status===500){
+            console.log(error)
+            console.log("Server is Down")
+            window.location.href="error.html"
+            return
+        }
+        const {response}=error
+        if(response && response.status===401){
+            console.log(error)
+            console.log("Not Allowed")
+            window.location.href="login2.html"
+            return
+        }
     }
 })

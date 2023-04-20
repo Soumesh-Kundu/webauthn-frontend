@@ -6,7 +6,7 @@ const username=document.querySelector("#username")
 const form=document.querySelector("#loginForm")
 
 const Axios=axios.create({
-    baseURL:"http://localhost:3000",
+    baseURL:"https://543f-115-187-58-227.ngrok-free.app",
     headers:{
         "Content-Type":"application/json"
     }

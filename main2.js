@@ -19,16 +19,18 @@ form.addEventListener('submit', async (e) => {
         let res = await Axios.post('/authenticate/generate-authenticate-option', {
             username: username.value
         })
-        console.log(res)
+        console.log("first api 1")
         const attResp = await startAuthentication({
             ...res.data,
         })
+        console.log("first api 2")
         console.log(attResp)
-
+        
         res = await Axios.post('/authenticate/Verify-Authentication', {
             authenticationBody: attResp,
             username: username.value
         })
+        console.log("first api 3")
 
         if (res.data && res.data.verified) {
             sessionStorage.setItem('SessionToken',res.data.sessionToken)

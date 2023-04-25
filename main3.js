@@ -35,11 +35,11 @@ form.addEventListener('submit', async (e) => {
         res = await Axios.post('/register/generate-register-option', {
             username:username.value
         })
-
+        console.log(res)
         const attResp = await startRegistration({
             ...res.data,
         })
-
+     console.log(attResp)
         res = await Axios.post('/register/Verify-Registration', {
             registrationBody: attResp,
             username:username.value

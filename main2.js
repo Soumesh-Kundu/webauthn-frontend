@@ -1,12 +1,15 @@
 import { startAuthentication } from "@simplewebauthn/browser";
 import axios from 'axios'
+import {config} from 'dotenv'
+config()
+
 
 const username = document.querySelector("#username")
 
 const form = document.querySelector("#loginForm")
 
 const Axios = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: process.env.APP_BACKEND,
     headers: {
         "Content-Type": "application/json"
     }

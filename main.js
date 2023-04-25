@@ -1,6 +1,8 @@
 import { startRegistration, browserSupportsWebAuthn } from "@simplewebauthn/browser";
 import axios from 'axios'
-
+import {config} from 'dotenv'
+config()
+console.log(process.env.TEST)
 const username = document.querySelector("#username")
 const password = document.querySelector("#password")
 const spanText= document.querySelector("#user-exists")
@@ -8,7 +10,7 @@ const spanText= document.querySelector("#user-exists")
 const form = document.querySelector("#registration")
 
 const Axios = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: process.env.APP_BACKEND,
     headers: {
         "Content-Type": "application/json"
     }

@@ -1,49 +1,50 @@
-import {  startAuthentication } from "@simplewebauthn/browser";
+import { startAuthentication } from "@simplewebauthn/browser";
 import axios from 'axios'
 
-const username=document.querySelector("#username")
+const username = document.querySelector("#username")
 
-const form=document.querySelector("#loginForm")
+const form = document.querySelector("#loginForm")
 
-const Axios=axios.create({
-    baseURL:"https://543f-115-187-58-227.ngrok-free.app",
-    headers:{
-        "Content-Type":"application/json"
+const Axios = axios.create({
+    baseURL: "http://localhost:3000",
+    headers: {
+        "Content-Type": "application/json"
     }
 })
-form.addEventListener('submit',async (e)=>{
+form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    console.log("Supported")
     try {
-        let res=await Axios.post('/generate-authenticate-option',{
-            username:username.value
+        let res = await Axios.post('/authenticate/generate-authenticate-option', {
+            username: username.value
         })
-        console.log(res.data)
-        console.log("Step1")
-        const attResp=await startAuthentication({
+
+        const attResp = await startAuthentication({
             ...res.data,
         })
-        console.log("Step2")
-        console.log(attResp)
-        res=await Axios.post('/Verify-Authentication',{
-            authenticationBody:attResp,
-            username:username.value
+
+        res = await Axios.post('/authenticate/Verify-Authentication', {
+            authenticationBody: attResp,
+            username: username.value
         })
-        console.log('step3')
-        if(res.data && res.data.verified){
-            window.location.href='/loginSucess.html'
+
+        if (res.data && res.data.verified) {
+            sessionStorage.setItem('SessionToken',res.data.sessionToken)
+            window.location.href = '/loginSucess.html'
         }
+
     } catch (error) {
-        if(!error.response || error.response.status===500){
+        if (!error.response || error.response.status === 500) {
             console.log(error)
             console.log("Server is Down")
             window.location.href="error.html"
             return
         }
-        const {response}=error
-        if(response && response.status===401){
+        const { response } = error
+        if (response && response.status === 401) {
             console.log(error)
             console.log("Not Allowed")
-            window.location.href="login2.html"
+            window.location.href = "login2.html"
             return
         }
     }

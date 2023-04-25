@@ -1,7 +1,6 @@
 import { startRegistration, browserSupportsWebAuthn } from "@simplewebauthn/browser";
 import axios from 'axios'
-import {config} from 'dotenv'
-config()
+
 
 
 const username = document.querySelector("#username")
@@ -10,11 +9,12 @@ const password = document.querySelector("#password")
 const form = document.querySelector("#login2")
 
 const Axios = axios.create({
-    baseURL: import.meta.env.APP_BACKEND,
+    baseURL: import.meta.env.VITE_APP_BACKEND,
     headers: {
         "Content-Type": "application/json"
     }
 })
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
     console.log("hey1")

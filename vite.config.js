@@ -13,5 +13,8 @@ export default defineConfig({
                 registerSuccess:resolve(__dirname,'registersuccess.html')
             }
         }
+    },
+    define:{
+        "process.env":process.env
     }
 })

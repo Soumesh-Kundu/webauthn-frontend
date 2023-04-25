@@ -2,7 +2,8 @@ import { startRegistration,} from "@simplewebauthn/browser";
 import axios from 'axios'
 import {config} from 'dotenv'
 config()
-console.log(process.env.TEST || 'hello')
+console.log("hey")
+console.log(import.meta.env.TEST || 'hello')
 const username = document.querySelector("#username")
 const password = document.querySelector("#password")
 const spanText= document.querySelector("#user-exists")
@@ -10,7 +11,7 @@ const spanText= document.querySelector("#user-exists")
 const form = document.querySelector("#registration")
 
 const Axios = axios.create({
-    baseURL: process.env.APP_BACKEND,
+    baseURL: import.meta.env.APP_BACKEND,
     headers: {
         "Content-Type": "application/json"
     }

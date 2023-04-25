@@ -10,7 +10,7 @@ const password = document.querySelector("#password")
 const form = document.querySelector("#login2")
 
 const Axios = axios.create({
-    baseURL: process.env.APP_BACKEND,
+    baseURL: import.meta.env.APP_BACKEND,
     headers: {
         "Content-Type": "application/json"
     }

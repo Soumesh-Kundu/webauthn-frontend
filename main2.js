@@ -9,7 +9,7 @@ const username = document.querySelector("#username")
 const form = document.querySelector("#loginForm")
 
 const Axios = axios.create({
-    baseURL: process.env.APP_BACKEND,
+    baseURL: import.meta.env.APP_BACKEND,
     headers: {
         "Content-Type": "application/json"
     }

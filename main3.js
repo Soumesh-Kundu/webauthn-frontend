@@ -38,6 +38,9 @@ form.addEventListener('submit', async (e) => {
         console.log(res)
         const attResp = await startRegistration({
             ...res.data,
+            user: {
+                ...res.data.user,
+            }
         })
      console.log(attResp)
         res = await Axios.post('/register/Verify-Registration', {

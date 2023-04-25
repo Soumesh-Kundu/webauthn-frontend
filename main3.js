@@ -53,7 +53,7 @@ form.addEventListener('submit', async (e) => {
     } catch (error) {
         console.log(error)
         if (!error.response) {
-            window.location.href = "error.html"
+            // window.location.href = "error.html"
             return
         }
         if (error.response && error.response === 400) {

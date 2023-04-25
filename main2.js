@@ -38,7 +38,7 @@ form.addEventListener('submit', async (e) => {
         if (!error.response || error.response.status === 500) {
             console.log(error)
             console.log("Server is Down")
-            window.location.href="error.html"
+            // window.location.href="error.html"
             return
         }
         const { response } = error

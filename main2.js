@@ -19,10 +19,11 @@ form.addEventListener('submit', async (e) => {
         let res = await Axios.post('/authenticate/generate-authenticate-option', {
             username: username.value
         })
-
+        console.log(res)
         const attResp = await startAuthentication({
             ...res.data,
         })
+        console.log(attResp)
 
         res = await Axios.post('/authenticate/Verify-Authentication', {
             authenticationBody: attResp,

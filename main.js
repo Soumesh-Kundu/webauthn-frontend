@@ -1,4 +1,4 @@
-import { startRegistration, browserSupportsWebAuthn } from "@simplewebauthn/browser";
+import { startRegistration,} from "@simplewebauthn/browser";
 import axios from 'axios'
 import {config} from 'dotenv'
 config()
@@ -17,13 +17,7 @@ const Axios = axios.create({
 })
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    if (browserSupportsWebAuthn()) {
-        console.log("supported")
-    }
-    else {
-        console.log("not supported")
-        return
-    }
+    console.log("hey1")
     try {
         let res = await Axios.post('/register', {
             username: username.value,

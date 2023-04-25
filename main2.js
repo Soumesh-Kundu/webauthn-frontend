@@ -17,6 +17,7 @@ const Axios = axios.create({
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
     console.log("Supported")
+    console.log("hey1")
     try {
         let res = await Axios.post('/authenticate/generate-authenticate-option', {
             username: username.value

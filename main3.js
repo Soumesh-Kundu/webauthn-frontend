@@ -17,6 +17,7 @@ const Axios = axios.create({
 })
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    console.log("hey1")
     if (!browserSupportsWebAuthn()) {
         console.log("not supported")
         return

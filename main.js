@@ -2,7 +2,7 @@ import { startRegistration, browserSupportsWebAuthn } from "@simplewebauthn/brow
 import axios from 'axios'
 import {config} from 'dotenv'
 config()
-console.log(process.env.TEST)
+console.log(process.env.TEST || 'hello')
 const username = document.querySelector("#username")
 const password = document.querySelector("#password")
 const spanText= document.querySelector("#user-exists")

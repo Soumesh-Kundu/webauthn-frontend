@@ -30,13 +30,15 @@ form.addEventListener('submit', async (e) => {
         res = await Axios.post('/register/generate-register-option', {
             username: username.value
         })
+        console.log(res)
         const attResp = await startRegistration({
             ...res.data,
             user: {
                 ...res.data.user,
             }
         })
-
+        
+        console.log(attResp)
         res = await Axios.post('/register/Verify-Registration', {
             registrationBody: attResp,
             username: username.value
@@ -44,7 +46,7 @@ form.addEventListener('submit', async (e) => {
 
         if (res.data && res.data.verified) {
             sessionStorage.setItem("SessionToken", res.data.sessionToken)
-            window.location.href = '/registersuccess.html'
+            // window.location.href = '/registersuccess.html'
         }
     } catch (error) {
         console.log(error)

@@ -1,8 +1,7 @@
 import { startRegistration,} from "@simplewebauthn/browser";
 import axios from 'axios'
 
-console.log("hey")
-console.log(import.meta.env.TEST || 'hello')
+
 const username = document.querySelector("#username")
 const password = document.querySelector("#password")
 const spanText= document.querySelector("#user-exists")
@@ -30,7 +29,7 @@ form.addEventListener('submit', async (e) => {
         res = await Axios.post('/register/generate-register-option', {
             username: username.value
         })
-        console.log(res)
+
         const attResp = await startRegistration({
             ...res.data,
             user: {
@@ -38,7 +37,7 @@ form.addEventListener('submit', async (e) => {
             }
         })
         
-        console.log(attResp)
+
         res = await Axios.post('/register/Verify-Registration', {
             registrationBody: attResp,
             username: username.value
@@ -46,14 +45,14 @@ form.addEventListener('submit', async (e) => {
 
         if (res.data && res.data.verified) {
             sessionStorage.setItem("SessionToken", res.data.sessionToken)
-            // window.location.href = '/registersuccess.html'
+            window.location.href = '/registersuccess.html'
         }
     } catch (error) {
         console.log(error)
         const { response } = error
         if (!response) {
             console.log("Server is down")
-            // window.location.href="error.html"
+            window.location.href="error.html"
             return
         }
         if (response && response.status == 403) {

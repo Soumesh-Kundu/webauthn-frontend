@@ -13,35 +13,33 @@ const Axios = axios.create({
 })
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    console.log("Supported")
-    console.log("hey1")
+
     try {
         let res = await Axios.post('/authenticate/generate-authenticate-option', {
             username: username.value
         })
-        console.log("first api 1")
-        console.log(res)
+
         const attResp = await startAuthentication({
             ...res.data,
         })
-        console.log("first api 2")
+
         
         res = await Axios.post('/authenticate/Verify-Authentication', {
             authenticationBody: attResp,
             username: username.value
         })
-        console.log("first api 3")
+
 
         if (res.data && res.data.verified) {
             sessionStorage.setItem('SessionToken',res.data.sessionToken)
-            // window.location.href = '/loginSucess.html'
+            window.location.href = '/loginSucess.html'
         }
 
     } catch (error) {
         if (!error.response || error.response.status === 500) {
             console.log(error)
             console.log("Server is Down")
-            // window.location.href="error.html"
+            window.location.href="error.html"
             return
         }
         const { response } = error

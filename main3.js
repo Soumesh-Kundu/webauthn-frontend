@@ -51,7 +51,7 @@ form.addEventListener('submit', async (e) => {
         if (res.data && res.data.verified) {
             sessionStorage.setItem("SessionToken", res.data.sessionToken)
             console.log("done")
-            window.location.href = '/registersuccess.html'
+            // window.location.href = '/registersuccess.html'
         }
     } catch (error) {
         console.log(error)

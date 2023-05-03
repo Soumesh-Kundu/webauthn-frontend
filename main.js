@@ -1,10 +1,12 @@
-import { startRegistration,} from "@simplewebauthn/browser";
+import { startRegistration, } from "@simplewebauthn/browser";
 import axios from 'axios'
 
-
 const username = document.querySelector("#username")
-const password = document.querySelector("#password")
-const spanText= document.querySelector("#user-exists")
+const Phone = document.querySelector("#Phone")
+const spanText = document.querySelector("#user-exists")
+const token = document.querySelector('#token')
+const OTPSection=document.querySelector("#OTPSection")
+const tokenSpanText=document.querySelector("#tokenSpanText")
 
 const form = document.querySelector("#registration")
 
@@ -14,18 +16,57 @@ const Axios = axios.create({
         "Content-Type": "application/json"
     }
 })
-form.addEventListener('submit', async (e) => {
+const submitArray = [register, verification]
+form.addEventListener('submit', submitArray[0])
+
+username.addEventListener('change', (e) => {
+    if (!spanText.classList.contains("invisible")) {
+        spanText.classList.add('invisible')
+    }
+})
+
+token.addEventListener('change',()=>{
+    if (!tokenSpanText.classList.contains("invisible")) {
+        tokenSpanText.classList.add('invisible')
+    }
+})
+
+
+async function register(e) {
     e.preventDefault()
-    console.log("hey1")
     try {
-        let res = await Axios.post('/register', {
+        const res = await Axios.post('/register', {
             username: username.value,
-            password: password.value
+            Phone: Phone.value
+        })
+        if (res.data && res.data.success) {
+            console.log(res.data.token)
+            OTPSection.classList.remove('hidden')
+            form.removeEventListener('submit',submitArray[0])
+            form.addEventListener('submit',submitArray[1])
+        }
+    } catch (error) {
+        console.log(error)
+        const { response } = error
+        if (!response) {
+            window.location.href = "error.html"
+            return
+        }
+        if (response && response.status == 403) {
+            spanText.classList.remove("invisible")
+        }
+    }
+}
+
+
+async function verification(e) {
+    e.preventDefault()
+    try {
+        let res = await Axios.post('/authenticate/token-authenticate', {
+            token: token.value,
+            username: username.value
         })
 
-        if (res.status !== 200) {
-            return console.log("error")
-        }
         res = await Axios.post('/register/generate-register-option', {
             username: username.value
         })
@@ -36,7 +77,6 @@ form.addEventListener('submit', async (e) => {
                 ...res.data.user,
             }
         })
-        
 
         res = await Axios.post('/register/Verify-Registration', {
             registrationBody: attResp,
@@ -51,19 +91,24 @@ form.addEventListener('submit', async (e) => {
         console.log(error)
         const { response } = error
         if (!response) {
-            console.log("Server is down")
-            window.location.href="error.html"
+            window.location.href = "error.html"
             return
         }
-        if (response && response.status == 403) {
-            console.log("User already exists")
-            spanText.classList.remove("invisible")
+        if (response && response.status === 401) {
+            tokenSpanText.innerText='Please enter a valid OTP'
+            tokenSpanText.classList.remove('invisible')
+            return
+        }
+        if (response && response.status === 400) {
+            tokenSpanText.innerText='Please enter a valid OTP'
+            tokenSpanText.classList.remove('invisible')
+            return
+        }
+        if (response && response.status === 408) {
+            tokenSpanText.innerText='OTP has expired'
+            tokenSpanText.classList.remove('invisible')
+            return
         }
     }
-})
+}
 
-username.addEventListener('change',(e)=>{
-    if(!spanText.classList.contains("invisible")){
-        spanText.classList.add('invisible')
-    }
-})

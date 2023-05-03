@@ -11,19 +11,21 @@ const Axios = axios.create({
         "Content-Type": "application/json"
     }
 })
+
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
-
     try {
         let res = await Axios.post('/authenticate/generate-authenticate-option', {
             username: username.value
         })
-
         const attResp = await startAuthentication({
             ...res.data,
+            user: {
+                ...res.data.user,
+            }
         })
 
-        
         res = await Axios.post('/authenticate/Verify-Authentication', {
             authenticationBody: attResp,
             username: username.value
@@ -31,21 +33,18 @@ form.addEventListener('submit', async (e) => {
 
 
         if (res.data && res.data.verified) {
-            sessionStorage.setItem('SessionToken',res.data.sessionToken)
+            sessionStorage.setItem('SessionToken', res.data.sessionToken)
             window.location.href = '/loginSucess.html'
         }
 
     } catch (error) {
+        console.log(error)
         if (!error.response || error.response.status === 500) {
-            console.log(error)
-            console.log("Server is Down")
             window.location.href="error.html"
             return
         }
         const { response } = error
         if (response && response.status === 401) {
-            console.log(error)
-            console.log("Not Allowed")
             window.location.href = "login2.html"
             return
         }

@@ -49,7 +49,7 @@ async function register(e) {
         console.log(error)
         const { response } = error
         if (!response) {
-            window.location.href = "error.html"
+//             window.location.href = "error.html"
             return
         }
         if (response && response.status == 403) {
@@ -91,7 +91,7 @@ async function verification(e) {
         console.log(error)
         const { response } = error
         if (!response) {
-            window.location.href = "error.html"
+//             window.location.href = "error.html"
             return
         }
         if (response && response.status === 401) {

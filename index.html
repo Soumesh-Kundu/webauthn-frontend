@@ -25,20 +25,20 @@
             <form class="space-y-4" id="registration" action="#">
               <div class="flex flex-col gap-1">
                 <label
-                  for="username"
+                  for="email"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Username</label
+                  >Email</label
                 >
                 <input
-                  type="text"
-                  name="username"
-                  id="username"
+                  type="email"
+                  name="email"
+                  id="email"
                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 p focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="JackRyan"
+                  placeholder="JackRyan@gmail.com"
                   required=""
                 />
                 <span id="user-exists" class="invisible text-sm text-red-500"
-                  >this username already exists</span
+                  >this user already exists</span
                 >
               </div>
               <div>
@@ -58,7 +58,7 @@
               <div class="hidden" id="OTPSection">
                 <label
                   for="token"
-                  class="block mb-2 text-base font-medium h-inherit text-gray-900 dark:text-white"
+                  class="block mb-2 text-base font-medium text-gray-900 h-inherit dark:text-white"
                   >Enter your otp</label
                 >
                 <input
@@ -68,7 +68,7 @@
                   maxlength="6"
                   class="bg-gray-50 border border-gray-300 no-appearence  text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600  focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
-                <span id="tokenSpanText" class="text-sm text-red-500 invisible">this is not valid OTP</span>
+                <span id="tokenSpanText" class="invisible text-sm text-red-500">this is not valid OTP</span>
               </div>
                 <button
                   type="submit"

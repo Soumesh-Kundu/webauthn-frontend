@@ -1,7 +1,7 @@
 import { startRegistration, } from "@simplewebauthn/browser";
 import axios from 'axios'
 
-const username = document.querySelector("#username")
+const email = document.querySelector("#email")
 const Phone = document.querySelector("#Phone")
 const spanText = document.querySelector("#user-exists")
 const token = document.querySelector('#token')
@@ -19,7 +19,7 @@ const Axios = axios.create({
 const submitArray = [register, verification]
 form.addEventListener('submit', submitArray[0])
 
-username.addEventListener('change', (e) => {
+email.addEventListener('change', (e) => {
     if (!spanText.classList.contains("invisible")) {
         spanText.classList.add('invisible')
     }
@@ -36,7 +36,7 @@ async function register(e) {
     e.preventDefault()
     try {
         const res = await Axios.post('/register', {
-            username: username.value,
+            Email: email.value,
             Phone: Phone.value
         })
         if (res.data && res.data.success) {
@@ -64,11 +64,11 @@ async function verification(e) {
     try {
         let res = await Axios.post('/authenticate/token-authenticate', {
             token: token.value,
-            username: username.value
+            Email: email.value
         })
 
         res = await Axios.post('/register/generate-register-option', {
-            username: username.value
+            Email: email.value
         })
 
         const attResp = await startRegistration({
@@ -80,7 +80,7 @@ async function verification(e) {
 
         res = await Axios.post('/register/Verify-Registration', {
             registrationBody: attResp,
-            username: username.value
+            Email: email.value
         })
 
         if (res.data && res.data.verified) {

@@ -1,7 +1,7 @@
 import { startAuthentication } from "@simplewebauthn/browser";
 import axios from 'axios'
 
-const username = document.querySelector("#username")
+const email = document.querySelector("#email")
 
 const form = document.querySelector("#loginForm")
 
@@ -17,7 +17,7 @@ form.addEventListener('submit', async (e) => {
     e.preventDefault()
     try {
         let res = await Axios.post('/authenticate/generate-authenticate-option', {
-            username: username.value
+            Email: email.value
         })
         const attResp = await startAuthentication({
             ...res.data,
@@ -28,7 +28,7 @@ form.addEventListener('submit', async (e) => {
 
         res = await Axios.post('/authenticate/Verify-Authentication', {
             authenticationBody: attResp,
-            username: username.value
+            Email: email.value
         })
 
 

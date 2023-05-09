@@ -85,6 +85,7 @@ async function verification(e) {
 
         if (res.data && res.data.verified) {
             sessionStorage.setItem("SessionToken", res.data.sessionToken)
+            localStorage.setItem(email.value, res.data.deviceID)
             window.location.href = '/registersuccess.html'
         }
     } catch (error) {

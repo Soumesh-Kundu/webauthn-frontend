@@ -46,7 +46,7 @@ form.addEventListener('submit', async (e) => {
     } catch (error) {
         console.log(error)
         if (!error.response || error.response.status === 500) {
-//             window.location.href="error.html"
+            window.location.href="error.html"
             return
         }
         const { response } = error

@@ -80,7 +80,7 @@ async function verifyAndRegistration(e){
         console.log(error)
         const {response}=error
         if (!error.response) {
-            window.location.href = "error.html"
+//             window.location.href = "error.html"
             return
         }
         if (response && response.status === 401) {

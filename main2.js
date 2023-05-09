@@ -16,8 +16,14 @@ const Axios = axios.create({
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
     try {
+        const deviceID=localStorage.getItem(email.value)
+        if(deviceID===null){
+            window.location.href='login2.html'
+            return
+        }
         let res = await Axios.post('/authenticate/generate-authenticate-option', {
-            Email: email.value
+            Email: email.value,
+            deviceID
         })
         const attResp = await startAuthentication({
             ...res.data,
